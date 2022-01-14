@@ -63,7 +63,7 @@ jobs:
       run: |
         if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
         mkdir wiebitte2
-        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        for file in `cat list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
         mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
@@ -94,7 +94,7 @@ jobs:
       run: |
         if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
         mkdir wiebitte2
-        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        for file in `cat list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
         mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.partplaceholder.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
