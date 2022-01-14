@@ -45,6 +45,7 @@ jobs:
 
     - name: Start Analyzing
       run: |
+        sudo spt-get install ffmpeg -y
         wget "https://github.com/yt-dlp/yt-dlp/releases/download/2021.12.27/yt-dlp.tar.gz"
         tar -xvzf yt-dlp.tar.gz
         chmod +x yt-dlp
