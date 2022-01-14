@@ -61,8 +61,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -90,8 +92,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part2.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -119,8 +123,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part3.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -148,8 +154,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part4.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -177,8 +185,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part5.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -206,8 +216,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part6.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -235,8 +247,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part7.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -264,8 +278,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part8.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -293,8 +309,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part9.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -322,8 +340,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part10.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -351,8 +371,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part11.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -380,8 +402,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part12.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -409,8 +433,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part13.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -438,8 +464,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part14.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -467,8 +495,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part15.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -496,8 +526,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part16.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -525,8 +557,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part17.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -554,8 +588,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part18.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -583,8 +619,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part19.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -612,8 +650,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part20.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -641,8 +681,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part21.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -670,8 +712,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part22.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -699,8 +743,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part23.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -728,8 +774,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part24.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -757,8 +805,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part25.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -786,8 +836,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part26.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -815,8 +867,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part27.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -844,8 +898,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part28.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -873,8 +929,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part29.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -902,8 +960,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part30.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -931,8 +991,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part31.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -960,8 +1022,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part32.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -989,8 +1053,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part33.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1018,8 +1084,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part34.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1047,8 +1115,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part35.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1076,8 +1146,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part36.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1105,8 +1177,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part37.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1134,8 +1208,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part38.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1163,8 +1239,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part39.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1192,8 +1270,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part40.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1221,8 +1301,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part41.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1250,8 +1332,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part42.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1279,8 +1363,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part43.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1308,8 +1394,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part44.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1337,8 +1425,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part45.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1366,8 +1456,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part46.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1395,8 +1487,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part47.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1424,8 +1518,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part48.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1453,8 +1549,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part49.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1482,8 +1580,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part50.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1511,8 +1611,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part51.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1540,8 +1642,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part52.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1569,8 +1673,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part53.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1598,8 +1704,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part54.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1627,8 +1735,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part55.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1656,8 +1766,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part56.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1685,8 +1797,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part57.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1714,8 +1828,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part58.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1743,8 +1859,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part59.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1772,8 +1890,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part60.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1801,8 +1921,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part61.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1830,8 +1952,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part62.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1859,8 +1983,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part63.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1888,8 +2014,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part64.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1917,8 +2045,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part65.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1946,8 +2076,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part66.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -1975,8 +2107,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part67.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2004,8 +2138,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part68.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2033,8 +2169,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part69.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2062,8 +2200,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part70.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2091,8 +2231,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part71.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2120,8 +2262,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part72.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2149,8 +2293,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part73.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2178,8 +2324,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part74.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2207,8 +2355,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part75.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2236,8 +2386,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part76.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2265,8 +2417,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part77.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2294,8 +2448,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part78.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2323,8 +2479,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part79.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2352,8 +2510,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part80.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2381,8 +2541,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part81.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2410,8 +2572,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part82.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2439,8 +2603,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part83.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2468,8 +2634,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part84.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2497,8 +2665,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part85.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2526,8 +2696,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part86.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2555,8 +2727,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part87.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2584,8 +2758,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part88.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2613,8 +2789,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part89.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2642,8 +2820,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part90.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2671,8 +2851,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part91.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2700,8 +2882,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part92.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2729,8 +2913,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part93.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2758,8 +2944,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part94.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2787,8 +2975,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part95.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2816,8 +3006,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part96.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2845,8 +3037,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part97.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2874,8 +3068,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part98.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2903,8 +3099,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part99.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2932,8 +3130,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part100.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2961,8 +3161,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part101.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -2990,8 +3192,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part102.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3019,8 +3223,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part103.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3048,8 +3254,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part104.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3077,8 +3285,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part105.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3106,8 +3316,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part106.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3135,8 +3347,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part107.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3164,8 +3378,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part108.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3193,8 +3409,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part109.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3222,8 +3440,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part110.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3251,8 +3471,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part111.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3280,8 +3502,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part112.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3309,8 +3533,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part113.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
@@ -3338,8 +3564,10 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
-        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
-        mv "wiebitte" "$filename"
+        if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
+        mkdir wiebitte2
+        for file in `echo list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
+        mv "wiebitte2" "$filename"
         rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part114.rar" "$filename"
         if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
     
