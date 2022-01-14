@@ -1,1 +1,3365 @@
-luminethonk moment
+# This is a basic workflow that is manually triggered
+
+name: youtube antics
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      channellink:
+        description: 'Channel Link: '
+        default: ''
+        required: true
+      audioonly:
+        description: 'Audio Only? '
+        default: 'JAJAJAJAJA'
+        required: true
+      archivefilename:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Archive Filename: '
+        # Default value if no value is explicitly provided
+        default: ''
+        # Input has to be provided for the workflow to run
+        required: false
+      mysteriousbashscripturl:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'URL of the mysterious bash script that would apply for every rar archive made in the process: '
+        # Default value if no value is explicitly provided
+        default: ''
+        # Input has to be provided for the workflow to run
+        required: false
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "pixivdump"
+  youtubedump:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Checkout Codes
+      uses: actions/checkout@v2
+
+    - name: Start Analyzing
+      run: |
+        sudo spt-get install ffmpeg -y
+        wget "https://github.com/yt-dlp/yt-dlp/releases/download/2021.12.27/yt-dlp.tar.gz"
+        tar -xvzf yt-dlp.tar.gz
+        chmod +x yt-dlp
+        wget "https://www.rarlab.com/rar/rarlinux-x64-6.0.2.tar.gz"
+        tar -xvzf rarlinux-x64-6.0.2.tar.gz
+        chmod +x rar/rar
+        mkdir wiebitte; cd wiebitte
+        [ "${{ github.event.inputs.audioonly }}" == "JAJAJAJAJA" ] && ../yt-dlp/yt-dlp -f 'bestaudio[ext=m4a]/mp4' --concurrent-fragments 114514 -o "%(upload_date)s.%(id)s.%(title)s.%(ext)s" "${{ github.event.inputs.channellink }}" || ../yt-dlp/yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --concurrent-fragments 114514 -o "%(upload_date)s.%(id)s.%(title)s.%(ext)s" "${{ github.event.inputs.channellink }}"
+        ls > ../list
+        cd ..
+    
+    - name: Pre-processing
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact"
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 2
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part2.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 2
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 2
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 2
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 3
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part3.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 3
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 3
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 3
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 4
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part4.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 4
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 4
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 4
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 5
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part5.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 5
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 5
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 5
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 6
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part6.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 6
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 6
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 6
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 7
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part7.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 7
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 7
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 7
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 8
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part8.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 8
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 8
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 8
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 9
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part9.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 9
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 9
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 9
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 10
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part10.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 10
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 10
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 10
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 11
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part11.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 11
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 11
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 11
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 12
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part12.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 12
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 12
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 12
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 13
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part13.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 13
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 13
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 13
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 14
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part14.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 14
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 14
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 14
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 15
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part15.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 15
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 15
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 15
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 16
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part16.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 16
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 16
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 16
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 17
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part17.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 17
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 17
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 17
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 18
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part18.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 18
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 18
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 18
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 19
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part19.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 19
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 19
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 19
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 20
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part20.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 20
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 20
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 20
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 21
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part21.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 21
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 21
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 21
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 22
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part22.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 22
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 22
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 22
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 23
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part23.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 23
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 23
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 23
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 24
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part24.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 24
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 24
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 24
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 25
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part25.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 25
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 25
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 25
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 26
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part26.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 26
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 26
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 26
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 27
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part27.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 27
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 27
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 27
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 28
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part28.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 28
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 28
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 28
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 29
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part29.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 29
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 29
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 29
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 30
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part30.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 30
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 30
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 30
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 31
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part31.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 31
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 31
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 31
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 32
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part32.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 32
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 32
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 32
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 33
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part33.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 33
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 33
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 33
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 34
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part34.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 34
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 34
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 34
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 35
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part35.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 35
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 35
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 35
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 36
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part36.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 36
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 36
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 36
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 37
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part37.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 37
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 37
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 37
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 38
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part38.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 38
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 38
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 38
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 39
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part39.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 39
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 39
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 39
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 40
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part40.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 40
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 40
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 40
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 41
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part41.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 41
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 41
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 41
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 42
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part42.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 42
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 42
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 42
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 43
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part43.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 43
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 43
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 43
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 44
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part44.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 44
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 44
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 44
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 45
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part45.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 45
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 45
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 45
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 46
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part46.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 46
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 46
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 46
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 47
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part47.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 47
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 47
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 47
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 48
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part48.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 48
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 48
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 48
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 49
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part49.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 49
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 49
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 49
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 50
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part50.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 50
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 50
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 50
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 51
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part51.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 51
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 51
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 51
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 52
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part52.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 52
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 52
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 52
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 53
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part53.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 53
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 53
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 53
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 54
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part54.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 54
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 54
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 54
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 55
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part55.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 55
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 55
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 55
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 56
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part56.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 56
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 56
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 56
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 57
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part57.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 57
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 57
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 57
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 58
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part58.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 58
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 58
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 58
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 59
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part59.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 59
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 59
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 59
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 60
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part60.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 60
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 60
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 60
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 61
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part61.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 61
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 61
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 61
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 62
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part62.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 62
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 62
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 62
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 63
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part63.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 63
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 63
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 63
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 64
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part64.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 64
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 64
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 64
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 65
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part65.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 65
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 65
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 65
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 66
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part66.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 66
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 66
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 66
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 67
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part67.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 67
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 67
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 67
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 68
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part68.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 68
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 68
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 68
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 69
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part69.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 69
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 69
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 69
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 70
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part70.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 70
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 70
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 70
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 71
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part71.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 71
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 71
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 71
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 72
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part72.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 72
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 72
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 72
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 73
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part73.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 73
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 73
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 73
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 74
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part74.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 74
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 74
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 74
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 75
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part75.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 75
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 75
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 75
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 76
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part76.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 76
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 76
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 76
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 77
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part77.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 77
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 77
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 77
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 78
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part78.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 78
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 78
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 78
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 79
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part79.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 79
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 79
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 79
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 80
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part80.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 80
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 80
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 80
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 81
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part81.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 81
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 81
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 81
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 82
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part82.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 82
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 82
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 82
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 83
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part83.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 83
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 83
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 83
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 84
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part84.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 84
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 84
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 84
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 85
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part85.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 85
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 85
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 85
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 86
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part86.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 86
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 86
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 86
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 87
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part87.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 87
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 87
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 87
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 88
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part88.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 88
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 88
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 88
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 89
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part89.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 89
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 89
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 89
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 90
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part90.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 90
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 90
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 90
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 91
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part91.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 91
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 91
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 91
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 92
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part92.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 92
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 92
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 92
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 93
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part93.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 93
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 93
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 93
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 94
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part94.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 94
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 94
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 94
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 95
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part95.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 95
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 95
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 95
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 96
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part96.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 96
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 96
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 96
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 97
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part97.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 97
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 97
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 97
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 98
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part98.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 98
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 98
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 98
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 99
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part99.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 99
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 99
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 99
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 100
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part100.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 100
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 100
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 100
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 101
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part101.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 101
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 101
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 101
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 102
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part102.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 102
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 102
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 102
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 103
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part103.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 103
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 103
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 103
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 104
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part104.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 104
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 104
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 104
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 105
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part105.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 105
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 105
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 105
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 106
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part106.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 106
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 106
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 106
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 107
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part107.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 107
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 107
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 107
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 108
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part108.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 108
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 108
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 108
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 109
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part109.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 109
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 109
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 109
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 110
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part110.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 110
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 110
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 110
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 111
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part111.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 111
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 111
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 111
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 112
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part112.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 112
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 112
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 112
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 113
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part113.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 113
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 113
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 113
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
+    - name: Pre-processing Part 114
+      if: hashFiles('list')
+      continue-on-error: true
+      run: |
+        [ "${{ github.event.inputs.archivefilename }}" ] && filename="${{ github.event.inputs.archivefilename }}" || filename="${${{ github.event.inputs.channellink }}##*/}"
+        mv "wiebitte" "$filename"
+        rar/rar a -df -ep1 -htb -m0 -ma5 -rr5 -ts -tsp -ol "$filename.part114.rar" "$filename"
+        if [ "${{ github.event.inputs.mysteriousbashscripturl }}" ]; then mysteriousbashscripturl="${{ github.event.inputs.mysteriousbashscripturl }}"; wget "$mysteriousbashscripturl" > /dev/null 2> /dev/null; for file in `ls | grep -E "\.rar$"`; do bash "${mysteriousbashscripturl##*/}" "$file" > /dev/null 2> /dev/null; done; fi; rm "${mysteriousbashscripturl##*/}" -f
+    
+    - name: Upload "Artifact" Part 114
+      if: hashFiles('*.rar')
+      uses: actions/upload-artifact@v2
+      with:
+        name: wiebitte
+        path: "*.rar"
+
+    - name: Pre-Cleanup Part 114
+      if: hashFiles('*.114514')
+      run: |
+        for file in `ls | grep -E "\.114514$"`; do mv "$file" "${file%.114514}"; done
+
+    - name: Cleanup Part 114
+      if: hashFiles('*.rar')
+      run: |
+        ls -lh
+        echo
+        stat *
+        rm *.rar -f
+
