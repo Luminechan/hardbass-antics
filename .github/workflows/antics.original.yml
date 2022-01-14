@@ -61,6 +61,7 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
+        IFS=$'\n'
         if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
         mkdir wiebitte2
         for file in `cat list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
@@ -92,6 +93,7 @@ jobs:
       if: hashFiles('list')
       continue-on-error: true
       run: |
+        IFS=$'\n'
         if [ "${{ github.event.inputs.archivefilename }}" ]; then filename="${{ github.event.inputs.archivefilename }}"; else filename="${{ github.event.inputs.channellink }}"; filename="${filename##*/}"; fi
         mkdir wiebitte2
         for file in `cat list`; do mv wiebitte/"$file" wiebitte2/"$file"; tail +2 list > list2; rm -f list; [ -s "list2" ] && mv list2 list; done
